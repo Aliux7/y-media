@@ -32,7 +32,7 @@ export default function AnimateIn({
   children,
   direction = "up",
   delay = 0,
-  duration = 0.6,
+  duration = 1,
   distance = 40,
   className,
 }: AnimateInProps) {

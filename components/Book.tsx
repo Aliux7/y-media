@@ -4,9 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import book1 from "@/app/assets/books/1.jpg";
-// Replace with actual images when available:
-// import book2 from "@/app/assets/books/2.jpg";
-// import book3 from "@/app/assets/books/3.jpg";
+import AnimatedText from "./TitleAnimatedText";
 
 const slides = [
   { src: book1, title: "THE JAKARTA ART", subtitle: "SIGNATURE COLLECTION" },
@@ -27,7 +25,7 @@ export default function Book() {
   }, []);
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative xl:h-screen aspect-video xl:aspect-auto w-full overflow-hidden">
       <AnimatePresence initial={false}>
         <motion.div
           key={current}
@@ -46,20 +44,20 @@ export default function Book() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute bottom-8 left-5 z-10">
-        <h1 className="text-black uppercase text-3xl">
+      <div className="absolute bottom-4 lg:bottom-8 left-5 z-10">
+        <AnimatedText className="text-black uppercase sm:text-xl lg:text-2xl xl:text-3xl">
           {slides[current].title}
-        </h1>
-        <h1 className="text-black uppercase text-3xl">
+        </AnimatedText>
+        <AnimatedText delay={0.5} className="text-black uppercase sm:text-xl lg:text-2xl xl:text-3xl">
           {slides[current].subtitle}
-        </h1>
+        </AnimatedText>
 
         {/* Indicator bar */}
-        <div className="relative w-37.5 h-0.5 mt-9 bg-black/30">
+        <div className="relative w-24 sm:w-37.5 h-0.5 mt-3 lg:mt-5 xl:mt-9 bg-black/30 [--bar:6rem] sm:[--bar:9.375rem] [--thumb:2rem] sm:[--thumb:3.25rem]">
           <div
-            className="absolute h-full w-13 bg-black transition-transform duration-700 ease-out"
+            className="absolute h-full w-8 sm:w-13 bg-black transition-transform duration-700 ease-out"
             style={{
-              transform: `translateX(calc(${current} / ${slides.length - 1} * (9.375rem - 3.25rem)))`,
+              transform: `translateX(calc(${current} / ${slides.length - 1} * (var(--bar) - var(--thumb))))`,
             }}
           />
         </div>

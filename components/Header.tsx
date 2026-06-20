@@ -1,40 +1,95 @@
+"use client";
+
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 import LogoName from "@/app/assets/logo_name.svg";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+
+const links = ["OUR BOOKS", "BOOK PRINCIPAL", "WHO WE ARE", "CONTACT"];
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
+  const [atTop, setAtTop] = useState(true);
+
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY < 200);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const bgClass = open
+    ? "backdrop-blur-md bg-black/70"
+    : atTop
+      ? "bg-black/0"
+      : "backdrop-blur-xs bg-black/10";
+
   return (
-    <header className="backdrop-blur-xs bg-black/10 z-50 fixed top-0 left-0 right-0 flex items-center justify-between p-5">
-      <div className="flex justify-center items-center gap-4">
-        <Image src={Logo} alt="Logo" width={43} height={61} />
-        <Image src={LogoName} alt="Logo Name" width={92} height={16} />
+    <header className={`${bgClass} transition-[backdrop-filter,background-color] duration-300 z-50 fixed top-0 left-0 right-0`}>
+      <div className="flex items-center justify-between p-5">
+        <div className="flex justify-center items-center gap-4">
+          <Image src={Logo} alt="Logo" width={43} height={61} className="w-[34px] h-[49px] lg:w-[43px] lg:h-[61px]" />
+          <Image src={LogoName} alt="Logo Name" width={92} height={16} className="w-[74px] h-[13px] lg:w-[92px] lg:h-[16px]" />
+        </div>
+
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center gap-15 font-raleway">
+          {links.map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Hamburger button */}
+        <button
+          className="lg:hidden flex flex-col justify-center items-center gap-1.5 w-8 h-8"
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Toggle menu"
+        >
+          <span
+            className="block w-6 h-px bg-white transition-transform duration-300 origin-center"
+            style={{ transform: open ? "translateY(4px) rotate(45deg)" : "none" }}
+          />
+          <span
+            className="block w-6 h-px bg-white transition-opacity duration-300"
+            style={{ opacity: open ? 0 : 1 }}
+          />
+          <span
+            className="block w-6 h-px bg-white transition-transform duration-300 origin-center"
+            style={{ transform: open ? "translateY(-4px) rotate(-45deg)" : "none" }}
+          />
+        </button>
       </div>
-      <nav className="flex items-center gap-15 font-raleway">
-        <a
-          href="#"
-          className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
-        >
-          OUR BOOKS
-        </a>
-        <a
-          href="#"
-          className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
-        >
-          BOOK PRINCIPAL
-        </a>
-        <a
-          href="#"
-          className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
-        >
-          WHO WE ARE
-        </a>
-        <a
-          href="#"
-          className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
-        >
-          CONTACT
-        </a>
-      </nav>
+
+      {/* Mobile nav */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.nav
+            key="mobile-nav"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden overflow-hidden flex flex-col gap-6 px-5 pb-6 font-raleway"
+          >
+            {links.map((label) => (
+              <a
+                key={label}
+                href="#"
+                className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </a>
+            ))}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -42,7 +42,7 @@ export default function BgImage({
   duration = 0.6,
   distance = 40,
 }: BgImageProps) {
-  const baseClass = `absolute -z-10 brightness-[.2] ${className}`;
+  const baseClass = `${className}`;
 
   if (direction) {
     return (

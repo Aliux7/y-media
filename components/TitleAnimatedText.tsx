@@ -16,6 +16,7 @@ interface AnimatedTextProps {
   as?: Tag;
   stagger?: boolean;
   mode?: Mode;
+  animateBorder?: boolean;
 }
 
 const fadeVariants: Record<Exclude<AnimationVariant, "reveal">, Variants> = {
@@ -68,18 +69,56 @@ const flipWrap: CSSProperties = {
 function RevealText({
   children,
   delay = 0,
-  duration = 0.7,
+  duration = 1.25,
   className,
   as: tag = "p",
   stagger = false,
   mode = "normal",
+  animateBorder = false,
 }: AnimatedTextProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(wrapperRef, { once: true });
   const MotionEl = motionEls[tag];
-  const ease = "easeInOut";
+  const ease = "easeInOut" as const;
   const animate = isInView ? "visible" : "hidden";
   const words = children.split(" ");
+
+  // Strip border-y so it doesn't appear on the text element when we animate it separately
+  const textClass = animateBorder
+    ? (className ?? "").replace(/\bborder-[xy]\b/g, "").trim()
+    : className;
+
+  const borderTransition = { duration: 0.8, delay: delay + 0.15, ease };
+  const borders = animateBorder ? (
+    <>
+      {/* Top border slides from left */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={borderTransition}
+        style={{
+          position: "absolute",
+          top: 0, left: 0, right: 0,
+          height: 0,
+          borderTop: "1px solid currentColor",
+          transformOrigin: "left",
+        }}
+      />
+      {/* Bottom border slides from right */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={borderTransition}
+        style={{
+          position: "absolute",
+          bottom: 0, left: 0, right: 0,
+          height: 0,
+          borderBottom: "1px solid currentColor",
+          transformOrigin: "right",
+        }}
+      />
+    </>
+  ) : null;
 
   function staggerBlock(wordVariant: Variants, extraDelay = 0) {
     return (
@@ -125,10 +164,10 @@ function RevealText({
     return <div ref={wrapperRef}>{staggerBlock(clipUp)}</div>;
   }
 
-  const original = (
+  const clipBox = (
     <div style={{ overflow: "hidden" }}>
       <MotionEl
-        className={className}
+        className={textClass}
         initial="hidden"
         animate={animate}
         variants={clipUp}
@@ -142,11 +181,12 @@ function RevealText({
   if (mode === "mirror") {
     return (
       <div ref={wrapperRef} style={{ position: "relative" }}>
-        {original}
+        {borders}
+        {clipBox}
         <div style={reflectionWrap}>
           <div style={{ overflow: "hidden", ...flipWrap }}>
             <MotionEl
-              className={className}
+              className={textClass}
               initial="hidden"
               animate={animate}
               variants={clipUp}
@@ -160,7 +200,12 @@ function RevealText({
     );
   }
 
-  return <div ref={wrapperRef}>{original}</div>;
+  return (
+    <div ref={wrapperRef} style={{ position: "relative" }}>
+      {borders}
+      {clipBox}
+    </div>
+  );
 }
 
 export default function AnimatedText({
@@ -172,6 +217,7 @@ export default function AnimatedText({
   as: tag = "p",
   stagger = false,
   mode = "normal",
+  animateBorder = false,
 }: AnimatedTextProps) {
   if (variant === "reveal") {
     return (
@@ -182,6 +228,7 @@ export default function AnimatedText({
         className={className}
         stagger={stagger}
         mode={mode}
+        animateBorder={animateBorder}
       >
         {children}
       </RevealText>
@@ -190,7 +237,7 @@ export default function AnimatedText({
 
   /* ── FADE / SLIDE variants ──────────────────────────────────────────── */
   const MotionEl = motionEls[tag];
-  const ease = "easeInOut";
+  const ease = "easeInOut" as const;
   const activeVariant =
     fadeVariants[variant as Exclude<AnimationVariant, "reveal">];
   const words = children.split(" ");

@@ -8,14 +8,14 @@ import WhoWeAre from "@/components/WhoWeAre";
 
 export default function Home() {
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Header />
       <Hero />
       <Book />
-      <WhatWeLove />
+      {/* <WhatWeLove />
       <ThePrincipal />
       <WhoWeAre />
-      <Footer />
-    </>
+      <Footer /> */}
+    </div>
   );
 }
