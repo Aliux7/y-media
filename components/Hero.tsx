@@ -7,7 +7,7 @@ import AnimateIn from "./AnimateIn";
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen flex flex-col items-start p-5 pt-24 lg:pt-30 pb-12 gap-2 sm:gap-4 md:gap-6 xl:gap-8">
+    <section className="relative w-full flex flex-col items-start p-5 pt-24 lg:pt-30 pb-12 gap-2 sm:gap-4 md:gap-6 xl:gap-8">
       <BgImage
         src={bg_item_1}
         width={364}
