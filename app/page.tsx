@@ -12,10 +12,10 @@ export default function Home() {
       <Header />
       <Hero />
       <Book />
-      {/* <WhatWeLove />
+      <WhatWeLove />
       <ThePrincipal />
       <WhoWeAre />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }

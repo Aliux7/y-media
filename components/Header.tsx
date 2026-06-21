@@ -13,7 +13,7 @@ const Header = () => {
   const [atTop, setAtTop] = useState(true);
 
   useEffect(() => {
-    const onScroll = () => setAtTop(window.scrollY < 200);
+    const onScroll = () => setAtTop(window.scrollY < 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -53,7 +53,7 @@ const Header = () => {
         >
           <span
             className="block w-6 h-px bg-white transition-transform duration-300 origin-center"
-            style={{ transform: open ? "translateY(4px) rotate(45deg)" : "none" }}
+            style={{ transform: open ? "translateY(7px) rotate(45deg)" : "none" }}
           />
           <span
             className="block w-6 h-px bg-white transition-opacity duration-300"
@@ -61,7 +61,7 @@ const Header = () => {
           />
           <span
             className="block w-6 h-px bg-white transition-transform duration-300 origin-center"
-            style={{ transform: open ? "translateY(-4px) rotate(-45deg)" : "none" }}
+            style={{ transform: open ? "translateY(-7px) rotate(-45deg)" : "none" }}
           />
         </button>
       </div>
