@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Logo from "@/app/assets/vertical_logo.svg";
 import BgImage from "./BgImage";
 import AnimateIn from "./AnimateIn";
