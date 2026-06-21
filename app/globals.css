@@ -33,3 +33,7 @@ body {
   color: #ffffff;
   font-family: "YRFLAUNT", sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}

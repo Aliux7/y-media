@@ -6,7 +6,14 @@ import LogoName from "@/app/assets/logo_name.svg";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
-const links = ["OUR BOOKS", "BOOK PRINCIPAL", "WHO WE ARE", "CONTACT"];
+const WHATSAPP = "https://wa.me/6283831005780";
+
+const links: { label: string; href: string; external?: boolean }[] = [
+  { label: "OUR BOOKS",      href: "#our-books" },
+  { label: "BOOK PRINCIPAL", href: "#book-principal" },
+  { label: "WHO WE ARE",     href: "#who-we-are" },
+  { label: "CONTACT",        href: WHATSAPP, external: true },
+];
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -24,6 +31,14 @@ const Header = () => {
       ? "bg-black/0"
       : "backdrop-blur-xs bg-black/10";
 
+  const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string, external?: boolean) => {
+    if (external) return;
+    e.preventDefault();
+    setOpen(false);
+    const id = href.slice(1);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <header className={`${bgClass} transition-[backdrop-filter,background-color] duration-300 z-50 fixed top-0 left-0 right-0`}>
       <div className="flex items-center justify-between p-5">
@@ -34,10 +49,13 @@ const Header = () => {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-15 font-raleway">
-          {links.map((label) => (
+          {links.map(({ label, href, external }) => (
             <a
               key={label}
-              href="#"
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              onClick={(e) => handleNav(e, href, external)}
               className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
             >
               {label}
@@ -77,12 +95,14 @@ const Header = () => {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="lg:hidden overflow-hidden flex flex-col gap-6 px-5 pb-6 font-raleway"
           >
-            {links.map((label) => (
+            {links.map(({ label, href, external }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                onClick={(e) => handleNav(e, href, external)}
                 className="text-white text-sm tracking-wide hover:opacity-70 transition-opacity"
-                onClick={() => setOpen(false)}
               >
                 {label}
               </a>

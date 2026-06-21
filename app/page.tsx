@@ -11,10 +11,10 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <Header />
       <Hero />
-      <Book />
+      <section id="our-books" className="scroll-mt-24"><Book /></section>
       <WhatWeLove />
-      <ThePrincipal />
-      <WhoWeAre />
+      <section id="book-principal" className="scroll-mt-24"><ThePrincipal /></section>
+      <section id="who-we-are" className="scroll-mt-24"><WhoWeAre /></section>
       <Footer />
     </div>
   );
