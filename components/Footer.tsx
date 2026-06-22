@@ -1,18 +1,29 @@
-import Logo from "@/app/assets/vertical_logo.svg";
+import Logo from "@/app/assets/logo.svg";
+import LogoName from "@/app/assets/logo_name.svg";
 import BgImage from "./BgImage";
 import AnimateIn from "./AnimateIn";
 
 const Footer = () => {
   return (
     <div className="relative p-5 flex flex-col sm:flex-row flex-wrap lg:flex-nowrap justify-between lg:justify-start gap-8 md:gap-12 lg:gap-[15%] items-start md:items-stretch pb-21.5">
-      <BgImage
-        src={Logo}
-        duration={2}
-        direction="up"
-        width={117}
-        height={205}
-        className="w-11.75 sm:w-14.75 md:w-18.5 lg:w-23.25 xl:w-29 h-21 sm:h-26.25 md:h-32.75 lg:h-40.75 xl:h-51"
-      />
+      <div className="flex flex-col">
+        <BgImage
+          src={Logo}
+          duration={2}
+          direction="up"
+          width={117}
+          height={205}
+          className="w-11.75 sm:w-14.75 md:w-18.5 lg:w-23.25 xl:w-29 h-21 sm:h-26.25 md:h-32.75 lg:h-40.75 xl:h-51"
+        />
+        <BgImage
+          src={LogoName}
+          duration={2}
+          direction="up"
+          width={117}
+          height={205}
+          className="w-11.75 sm:w-14.75 md:w-18.5 lg:w-23.25 xl:w-29"
+        />
+      </div>
 
       <AnimateIn
         duration={2}
