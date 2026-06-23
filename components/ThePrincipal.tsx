@@ -37,7 +37,7 @@ const ThePrincipal = () => {
           <AnimateIn
             direction="right"
             duration={2}
-            className="uppercase font-raleway font-semibold text-sm md:text-base xl:text-lg"
+            className="uppercase font-semibold text-sm md:text-base xl:text-lg"
           >
             “In a world obsessed with visibility, I am interested in what
             remains — ideas that become physical, stories that gain structure,
@@ -46,7 +46,7 @@ const ThePrincipal = () => {
           <AnimateIn
             direction="right"
             duration={2}
-            className="uppercase font-raleway font-semibold text-sm md:text-base xl:text-lg"
+            className="uppercase font-semibold text-sm md:text-base xl:text-lg"
           >
             — Yasser Rizky
           </AnimateIn>
