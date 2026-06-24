@@ -34,7 +34,6 @@ const Hero = () => {
       </div>
       <AnimatedText
         as="h1"
-        mode="mirror"
         duration={2}
         variant="reveal"
         className="text-6xl text-[66px] md:text-7xl md:text-[80px] lg:text-8xl lg:text-[110px] xl:text-[140px] text-white uppercase leading-none"
@@ -45,7 +44,7 @@ const Hero = () => {
         <AnimatedText
           as="h1"
           delay={0.5}
-          mode="mirror"
+
           duration={2}
           variant="reveal"
           className="text-6xl text-[66px] md:text-7xl md:text-[80px] lg:text-8xl lg:text-[110px] xl:text-[140px] text-white uppercase font-medium leading-none"
@@ -57,7 +56,7 @@ const Hero = () => {
         <AnimatedText
           as="h1"
           delay={1}
-          mode="mirror"
+
           duration={2}
           variant="reveal"
           className="text-6xl text-[66px] md:text-7xl md:text-[80px] lg:text-8xl lg:text-[110px] xl:text-[140px] text-white uppercase leading-none"
@@ -68,7 +67,7 @@ const Hero = () => {
           <AnimatedText
             as="h1"
             delay={1.5}
-            mode="mirror"
+  
             duration={2}
             variant="reveal"
             className="text-6xl text-[66px] md:text-7xl md:text-[80px] lg:text-8xl lg:text-[110px] xl:text-[140px] text-white uppercase font-black leading-none"
