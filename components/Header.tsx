@@ -71,7 +71,7 @@ const Header = () => {
         </div>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-15 font-raleway">
+        <nav className="hidden lg:flex items-center gap-15 ">
           {links.map(({ label, href, external, extraClass }) => (
             <a
               key={label}
@@ -120,7 +120,7 @@ const Header = () => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden flex flex-col gap-6 px-5 pb-6 font-raleway"
+            className="lg:hidden overflow-hidden flex flex-col gap-6 px-5 pb-6 "
           >
             {links.map(({ label, href, external, extraClass }) => (
               <a
