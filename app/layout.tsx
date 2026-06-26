@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import FontGuard from "@/components/FontGuard";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
   title: "Y Media",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <FontGuard />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );
