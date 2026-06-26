@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async headers() {
-    const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "https://y-media.vercel.app/";
+    const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ymedia.id/";
     return [
       {
         source: "/assets/fonts/:path*",
